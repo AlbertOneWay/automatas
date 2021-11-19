@@ -2,23 +2,32 @@ import { instrumentos } from "./model/instrumentos.js"
 
 document.addEventListener("DOMContentLoaded", e => {
 
+    let longi = LongitudRandom()
 
-    const instrumento1 = EscogerInstrumento("guitarra")
-    const instrumento2 = EscogerInstrumento("violin")
-    const instrumento3 = EscogerInstrumento("acordeon")
+    const ConfigAutomata = {
+        array: ConfigInicialRandom(longi),
+        Tipofrontera: "Circular"
+    }
+    let automata1=  CrearAutomata(ConfigAutomata)
 
-    let instru = InstrumentoRandom()
+    console.log(automata1);
+
     
-    console.log(NotaRandom("guitarra")); 
 
-    let config = LlenarConfigInicial("010111", 6);
-    console.log(config);
-
-    config = ConfigInicialRandom(LongitudRandom());
-    console.log(config);
 })
 
-function CrearAutomata({notacero, notauno, instrumento, configuracionInicial}){
+function RecorrerAutomata(nroiteraciones){
+
+    for(let i=0; i<nroiteraciones; i++){
+        IteracionAutomata()
+    }
+}
+
+function IteracionAutomata(){
+    array
+}
+
+function CrearAutomata({array,notacero, notauno, instrumento, longitud, Tipofrontera, regla, nroiteraciones}){
 
     if(!instrumento){
         instrumento= InstrumentoRandom()
@@ -29,19 +38,40 @@ function CrearAutomata({notacero, notauno, instrumento, configuracionInicial}){
     if(!notauno){
         notauno= NotaRandom(instrumento)
     }
-    if(!configuracionInicial.longitud){
-        configuracionInicial.longitud = LongitudRandom()
+    if(!longitud){
+        longitud = LongitudRandom()
     }
-
-    configuracionInicial.longitud  
-
+    
+    let fronteras = EscogerFrontera(Tipofrontera, array)
+    
     const automata = {
         notacero: notacero,
         notauno: notauno,
         instrumento: instrumento,
-        array: []
+        fronteras: fronteras,
+        array: array
     }
 
+    return automata
+}
+
+const EscogerFrontera=(frontera, arreglo) => {
+
+    const fronteras= {}
+        
+
+    if(frontera === "Circular"){
+        fronteras.primerfrontera = arreglo[arreglo.length-1]
+        fronteras.ultimafrontera = arreglo[0]
+    } else if (frontera === "Espejo"){
+        fronteras.primerfrontera = arreglo[0]
+        fronteras.ultimafrontera = arreglo[arreglo.length-1]
+    } else if(frontera === "Fijo"){
+        fronteras.primerfrontera = ""
+        fronteras.ultimafrontera = ""
+    }
+
+    return fronteras
 }
 
 function LlenarConfigInicial (cadena, longitud){
@@ -118,10 +148,6 @@ function NotaRandom(instrumento) {
     
     let numero = Math.round((Math.random() * 4));
 
-    console.log(numero);
-
-    console.log(Object.values(instrumentos[instrumento]));
-
-    return Object.values(instrumentos[instrumento])[numero]
+    return Object.values(instrumento)[numero]
 
 }

@@ -1,5 +1,6 @@
 export const instrumentos = {
     "guitarra": {
+        "nombre": "Guitarra",
         "silencio": new Audio(""),
         "do": new Audio("./sounds/Guitarra/G1.mp3"),
         "re": new Audio("./sounds/Guitarra/G2.mp3"),
@@ -7,6 +8,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Guitarra/G4.mp3")
     },
     "trompeta": {
+        "nombre": "Trompeta",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Trompeta/T1.mp3"),
         "re": new Audio("./sounds/Trompeta/T2.mp3"),
@@ -14,6 +16,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Trompeta/T4.mp3")
     },
     "bajo": {
+        "nombre": "Bajo",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Bajo/B1.mp3"),
         "re": new Audio("./sounds/Bajo/B2.mp3"),
@@ -21,6 +24,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Bajo/B4.mp3")
     },
     "trombon": {
+        "nombre": "Trombon",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Trombon/TR1.mp3"),
         "re": new Audio("./sounds/Trombon/TR2.mp3"),
@@ -28,6 +32,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Trombon/TR4.mp3")
     },
     "acordeon": {
+        "nombre": "Acordeon",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Acordeon/A1.mp3"),
         "re": new Audio("./sounds/Acordeon/A2.mp3"),
@@ -35,6 +40,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Acordeon/A4.mp3")
     },
     "violin": {
+        "nombre": "Violin",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Violin/V1.wav"),
         "re": new Audio("./sounds/Violin/V2.wav"),
@@ -42,6 +48,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Violin/V4.wav")
     },
     "ukelele": {
+        "nombre": "Ukelele",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Ukelele/U1.mp3"),
         "re": new Audio("./sounds/Ukelele/U2.mp3"),
@@ -49,6 +56,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Ukelele/U4.mp3")
     },
     "flauta": {
+        "nombre": "Flauta",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Flauta/F1.mp3"),
         "re": new Audio("./sounds/Flauta/F2.mp3"),
@@ -56,6 +64,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Flauta/F4.mp3")
     },
     "piano": {
+        "nombre": "Piano",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Piano/P1.mp3"),
         "re": new Audio("./sounds/Piano/P2.mp3"),
@@ -63,6 +72,7 @@ export const instrumentos = {
         "fa": new Audio("./sounds/Piano/P4.mp3")
     },
     "xilofono": {
+        "nombre": "Xilofono",
         "silencio": new Audio("./sounds/silencio.mp3"),
         "do": new Audio("./sounds/Xilofono/X1.mp3"),
         "re": new Audio("./sounds/Xilofono/X2.mp3"),

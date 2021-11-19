@@ -1,0 +1,17 @@
+1 automata 2 estados
+1 automata 2 estados
+1 automata 3 estados
+
+Instrumentos 
+
+Guitarra  G0 G1 G2 G3 G4
+Trompeta T0 T1 T2 T3 T4
+Clarinete C0 C1 C2 C3 C4
+Trombon TR0 TR1 TR2 TR3 TR4
+Acordeon A0 A1 A2 A3 A4
+Violin V0 V1 V2 V3 V4
+Saxofon S0 S1 S2 S3 S4
+Bajo B0 B1 B2 B3 B4
+Piano P0 P1 P2 P3 P4
+Xilofono X0 X1 X2 X3 X4
+
