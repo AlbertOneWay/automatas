@@ -8,65 +8,63 @@ document.addEventListener("DOMContentLoaded", e => {
         array: ConfigInicialRandom(longi),
         Tipofrontera: "Circular"
     }
-    let automata1=  CrearAutomata(ConfigAutomata)
 
-    console.log(automata1);
-
-    
-
+    let automata1 = CrearAutomata(ConfigAutomata)
 })
 
-function RecorrerAutomata(nroiteraciones){
+function RecorrerAutomata(nroiteraciones) {
 
-    for(let i=0; i<nroiteraciones; i++){
+    for (let i = 0; i < nroiteraciones; i++) {
         IteracionAutomata()
     }
 }
 
-function IteracionAutomata(){
+function IteracionAutomata() {
     array
 }
 
-function CrearAutomata({array,notacero, notauno, instrumento, longitud, Tipofrontera, regla, nroiteraciones}){
+function CrearAutomata({ array, notacero, notauno, instrumento, longitud, Tipofrontera, regla, nroiteraciones }) {
 
-    if(!instrumento){
-        instrumento= InstrumentoRandom()
+    if (!instrumento) {
+        instrumento = InstrumentoRandom()
     }
-    if(!notacero){
-        notacero= NotaRandom(instrumento)
+    if (!notacero) {
+        notacero = NotaRandom(instrumento)
     }
-    if(!notauno){
-        notauno= NotaRandom(instrumento)
+    if (!notauno) {
+        notauno = NotaRandom(instrumento)
     }
-    if(!longitud){
+    if (!longitud) {
         longitud = LongitudRandom()
     }
-    
+
     let fronteras = EscogerFrontera(Tipofrontera, array)
-    
+    let regla = CrearRegla(regla)
+
     const automata = {
         notacero: notacero,
         notauno: notauno,
         instrumento: instrumento,
         fronteras: fronteras,
-        array: array
+        array: array,
+        regla
     }
 
     return automata
 }
 
-const EscogerFrontera=(frontera, arreglo) => {
+const EscogerFrontera = (frontera, arreglo) => {
 
-    const fronteras= {}
-        
+    const fronteras = {}
 
-    if(frontera === "Circular"){
-        fronteras.primerfrontera = arreglo[arreglo.length-1]
+
+    if (frontera === "Circular") {
+        fronteras.primerfrontera = arreglo[arreglo.length - 1]
         fronteras.ultimafrontera = arreglo[0]
-    } else if (frontera === "Espejo"){
+    } else if (frontera === "Espejo") {
         fronteras.primerfrontera = arreglo[0]
-        fronteras.ultimafrontera = arreglo[arreglo.length-1]
-    } else if(frontera === "Fijo"){
+        fronteras.ultimafrontera = arreglo[arreglo.length - 1]
+    } else if (frontera === "Fijo") {
         fronteras.primerfrontera = ""
         fronteras.ultimafrontera = ""
     }
@@ -74,9 +72,9 @@ const EscogerFrontera=(frontera, arreglo) => {
     return fronteras
 }
 
-function LlenarConfigInicial (cadena, longitud){
+function LlenarConfigInicial(cadena, longitud) {
 
-    if(cadena.length === longitud){
+    if (cadena.length === longitud) {
 
         const array = []
 
@@ -91,28 +89,28 @@ function LlenarConfigInicial (cadena, longitud){
 
 }
 
-function ConfigInicialRandom (longitud){
+function ConfigInicialRandom(longitud) {
 
     const array = []
 
-   for(let i=0 ; i<longitud; i++){
-       const estadoAleatorio = Math.round(Math.random()) 
-       array.push(estadoAleatorio)
-   }
+    for (let i = 0; i < longitud; i++) {
+        const estadoAleatorio = Math.round(Math.random())
+        array.push(estadoAleatorio)
+    }
 
-   return array
+    return array
 }
 
-function EscogerLongitud(longitud){
+function EscogerLongitud(longitud) {
 
-    if(longitud > 100){
+    if (longitud > 100) {
         longitud = 100
     }
 
     return longitud
 }
 
-function LongitudRandom(){
+function LongitudRandom() {
 
     let numero = Math.round(Math.random() * 99) + 1
 
@@ -139,15 +137,41 @@ function InstrumentoRandom() {
 }
 
 function EscogerNota(instrumento, nota) {
-    
+
     return instrumentos[instrumento][nota]
 
 }
 
 function NotaRandom(instrumento) {
-    
+
     let numero = Math.round((Math.random() * 4));
 
     return Object.values(instrumento)[numero]
 
+}
+
+function CrearRegla(regla) {
+    const objetoRegla = new Map()
+    objetoRegla.set('000', 0)
+    objetoRegla.set('001', 0)
+    objetoRegla.set('010', 0)
+    objetoRegla.set('011', 0)
+    objetoRegla.set('100', 0)
+    objetoRegla.set('101', 0)
+    objetoRegla.set('110', 0)
+    objetoRegla.set('111', 0)
+    
+    for (const reglaIndice of objetoRegla.keys()) {
+        let binario = 0
+        const moduloRegla = regla % 2
+
+        if (moduloRegla > 0) {
+            binario = 1
+        }
+        regla = parseInt(regla / 2)
+
+        objetoRegla.set(reglaIndice, binario)
+    }
+
+    return objetoRegla
 }
