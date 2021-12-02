@@ -9,17 +9,14 @@ document.addEventListener("DOMContentLoaded", async e => {
         array: ConfigInicialRandom(longi),
         Tipofrontera: "Circular"
     }
-    let automata1=  CrearAutomata(ConfigAutomata)
+    let automata1 = CrearAutomata(ConfigAutomata)
 
-    console.log(automata1);
+    dibujarArreglo('#automata-1')
 
 
-    document.querySelector('#btn_aceptar').addEventListener('click', e =>{
+    document.querySelector('#btn_aceptar').addEventListener('click', e => {
 
     })
-
-    
-    
 
     const instrumentosList = await fetchData("./data/instrumentos.json")
     populateSelectList('#instrumentos', instrumentosList, 'value', 'name')
@@ -59,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async e => {
 
     const fronteras = await fetchData('./data/fronteras.json')
     populateSelectList('#fronteras', fronteras, 'value', 'name')
-   
+
 
 
     let doms = CargaDom.escucharRandom()
@@ -101,7 +98,7 @@ function CrearAutomata({ array, notacero, notauno, instrumento, longitud, Tipofr
         instrumento: instrumento,
         fronteras: fronteras,
         array: array,
-        regla
+        regla: Nuevaregla
     }
 
     return automata
@@ -214,7 +211,7 @@ function CrearRegla(regla) {
     objetoRegla.set('101', 0)
     objetoRegla.set('110', 0)
     objetoRegla.set('111', 0)
-    
+
     for (const reglaIndice of objetoRegla.keys()) {
         let binario = 0
         const moduloRegla = regla % 2
@@ -258,3 +255,53 @@ async function fetchData(url, data = {}) {
     return await respuestas.json()
 
 }
+
+async function dibujarArreglo(canvasAutomataId) {
+    let arregloNotas = [1, 0, 1, 0, 0, 1, 1, 0, 0];
+
+    const canvasAutomata = document.querySelector(`${canvasAutomataId}`);
+    let context = canvasAutomata.getContext('2d');
+
+    const anchoRectangulo = canvasAutomata.width / arregloNotas.length;
+
+    let coordenadaYActual = 10;
+
+    while (true) {
+        let coordenadaXActual = 0;
+        for (const nota of arregloNotas) {
+            if (nota === 0) {
+                await insertarElemento(context, "blue", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+            } else if (nota === 1) {                
+                await insertarElemento(context, "yellow", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+            }
+
+            coordenadaXActual += anchoRectangulo;
+        }
+
+        coordenadaYActual += 10;
+
+        // Se crea el nuevo arreglo según las reglas
+        // arregloNotas = [0, 0, 1, 1, 0, 0, 1, 0, 1];
+
+        if (coordenadaYActual > canvasAutomata.height) {
+            coordenadaYActual = 10;
+        }
+        
+    }
+}
+
+function insertarElemento(ctx, color, cordX, cordY, width, height) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            ctx.beginPath()
+            ctx.fillStyle = color
+            ctx.fill()
+            ctx.clearRect(cordX, cordY, width, height)
+            ctx.fillRect(cordX, cordY, width, height)
+            ctx.closePath()
+
+            resolve(true)
+        }, 1000);
+    })
+}
+
