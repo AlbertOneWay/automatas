@@ -1,6 +1,7 @@
 import { instrumentos } from "./model/instrumentos.js"
+import * as CargaDom from "./model/cargasDom.js"
 
-document.addEventListener("DOMContentLoaded", e => {
+document.addEventListener("DOMContentLoaded", async e => {
 
     let longi = LongitudRandom()
 
@@ -8,8 +9,61 @@ document.addEventListener("DOMContentLoaded", e => {
         array: ConfigInicialRandom(longi),
         Tipofrontera: "Circular"
     }
+    let automata1=  CrearAutomata(ConfigAutomata)
 
-    let automata1 = CrearAutomata(ConfigAutomata)
+    console.log(automata1);
+
+
+    document.querySelector('#btn_aceptar').addEventListener('click', e =>{
+
+    })
+
+    
+    
+
+    const instrumentosList = await fetchData("./data/instrumentos.json")
+    populateSelectList('#instrumentos', instrumentosList, 'value', 'name')
+    populateSelectList('#instrumentos2', instrumentosList, 'value', 'name')
+    populateSelectList('#instrumentos3', instrumentosList, 'value', 'name')
+    const instrumento = document.querySelector('#instrumentos')
+
+    instrumento.addEventListener('change', e => {
+        const list = e.target
+        const item = list.options[list.selectedIndex]
+        console.log(instrumento[list.selectedIndex].value, instrumento[list.selectedIndex].text);
+    })
+
+    const notas = await fetchData('./data/notas.json')
+    populateSelectList('#notaUno', notas, 'value', 'name')
+    populateSelectList('#notaUno2', notas, 'value', 'name')
+    populateSelectList('#notaUno3', notas, 'value', 'name')
+    const notaUno = document.querySelector('#notaUno')
+
+    populateSelectList('#notaDos', notas, 'value', 'name')
+    populateSelectList('#notaDos2', notas, 'value', 'name')
+    populateSelectList('#notaDos3', notas, 'value', 'name')
+    const notaDos = document.querySelector('#notaDos')
+
+
+    notaUno.addEventListener('change', e => {
+        const list = e.target
+        const item = list.options[list.selectedIndex]
+        console.log(notaUno[list.selectedIndex].value, notaUno[list.selectedIndex].text);
+    })
+
+    notaDos.addEventListener('change', e => {
+        const list = e.target
+        const item = list.options[list.selectedIndex]
+        console.log(notaDos[list.selectedIndex].value, notaDos[list.selectedIndex].text);
+    })
+
+    const fronteras = await fetchData('./data/fronteras.json')
+    populateSelectList('#fronteras', fronteras, 'value', 'name')
+   
+
+
+    let doms = CargaDom.escucharRandom()
+
 })
 
 function RecorrerAutomata(nroiteraciones) {
@@ -174,4 +228,33 @@ function CrearRegla(regla) {
     }
 
     return objetoRegla
+}
+async function populateSelectList(selector, items = [], value = '', text = '') {
+    let lista = document.querySelector(selector)
+    lista.options.length = 0
+    items.forEach(item => lista.add(new Option(item[text], item[value])))
+}
+
+
+async function fetchData(url, data = {}) {
+
+    if (Object.entries(data).length > 0) {
+        if (!('headers' in data)) {
+            data.headers = {
+                'Content-Type': 'application/json'
+            }
+        }
+        if ('body' in data) {
+            data.body = JSON.stringify(data.body)
+        }
+    }
+
+    const respuestas = await fetch(url, data)
+
+    if (!respuestas.ok) {
+        document.querySelector('#content').innerHTML = 'No encontramos lo que búscas <b>:(</b>'
+        throw new Error(`${respuesta.status} - ${respuesta.statusText}`)
+    }
+    return await respuestas.json()
+
 }
