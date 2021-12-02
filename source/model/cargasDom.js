@@ -2,16 +2,69 @@ import { instrumentos } from "./instrumentos.js"
 
 export async function escucharRandom(){
 
+    //selects
+
+    const instrumentosList = await fetchData("./data/instrumentos.json")
+    populateSelectList('#instrumentos', instrumentosList, 'value', 'name')
+    populateSelectList('#instrumentos2', instrumentosList, 'value', 'name')
+    populateSelectList('#instrumentos3', instrumentosList, 'value', 'name')
+    
+
+    const notas = await fetchData('./data/notas.json')
+    populateSelectList('#notaUno', notas, 'value', 'name')
+    populateSelectList('#notaUno2', notas, 'value', 'name')
+    populateSelectList('#notaUno3', notas, 'value', 'name')
+    
+
+    populateSelectList('#notaDos', notas, 'value', 'name')
+    populateSelectList('#notaDos2', notas, 'value', 'name')
+    populateSelectList('#notaDos3', notas, 'value', 'name')
+
+
+
+    const fronteras = await fetchData('./data/fronteras.json')
+    populateSelectList('#fronteras', fronteras, 'value', 'name')
+
 
     //Fronteras y Longitud
 
-    const fronteras = await fetchData('./data/fronteras.json')
+    document.querySelector('#fronteras').addEventListener('click', e =>{
+
+        if(document.getElementById('fronteras').value === "fijo"){
+            document.getElementById('front').innerHTML= `<div id="labels">
+            <label class="w-25 mb-3">Primer Frontera</label>
+            <input placeholder="0 o 1" id="frontprim" class="w-50">
+            <label class="w-25 mb-3">Ultima Frontera</label>
+            <input placeholder="0 o 1" id="frontult" class="w-50"> </div>
+            `
+        }else if(document.getElementById('fronteras').value !== "fijo"){
+           
+            let quitar = document.getElementById('labels')
+            if(quitar) quitar.parentNode.removeChild(quitar)
+            
+        }
+        
+    })
+
     
     document.querySelector('#btn_frontera').addEventListener('click', e =>{
 
         let valor = FronteraRandom(fronteras)
         document.getElementById('fronteras').value = valor.value
         
+        if(valor.value === "fijo"){
+            document.getElementById('front').innerHTML= `<div id="labels">
+            <label class="w-25 mb-3">Primer Frontera</label>
+            <input placeholder="0 o 1" id="frontprim" class="w-50">
+            <label class="w-25 mb-3">Ultima Frontera</label>
+            <input placeholder="0 o 1" id="frontult" class="w-50"> </div>
+            `
+        }else if(valor.value !== "fijo"){
+           
+            let quitar = document.getElementById('labels')
+            if(quitar) quitar.parentNode.removeChild(quitar)
+            
+        }
     })
 
     document.querySelector('#btn_longitud').addEventListener('click', e =>{
@@ -115,7 +168,6 @@ export async function escucharRandom(){
 
         let confi = ConfigInicialRandom(document.getElementById('longitud').value)
     
-        console.log(confi);
        
         document.getElementById('confi').value = confi.join('')
         
@@ -255,4 +307,10 @@ async function fetchData(url, data = {}) {
     }
     return await respuestas.json()
 
+}
+
+async function populateSelectList(selector, items = [], value = '', text = '') {
+    let lista = document.querySelector(selector)
+    lista.options.length = 0
+    items.forEach(item => lista.add(new Option(item[text], item[value])))
 }

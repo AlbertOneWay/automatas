@@ -34,13 +34,15 @@
     <main class="row">
         <section class="col-md-6 px-5 py-4 bg-light">
             <h3 class="mb-3">Configuración General</h3>
-            <form>
+            <form id="general">
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Frontera</label>
                     <select class="form-select w-50" id="fronteras">
                     </select>
                     <button id="btn_frontera" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
+                <section id="front" class="mb-3">
+                </section>
                 <div class="form-group mb-3">
                     <label class="w-25">Longitud</label>
                     <input placeholder="Maximo 100" id="longitud" class="w-50">
@@ -77,10 +79,14 @@
                     <input placeholder="Entre 0's y 1's" id="confi" class="w-50">
                     <button id="btn_confi" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
-                <div class="form-group mb-5">
+                <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
                     <input placeholder="Entre 0 y 255" class="w-50" id= "regla">
                     <button id="btn_regla" type="button" class="btn btn-primary ms-3">Random</button>
+                </div>
+                <div class="form-group mb-5">
+                    <label class="w-25">Número de iteraciones</label>
+                    <input placeholder="0 = infinito" id="iteraciones" class="w-50">
                 </div>
                 <div class="d-flex justify-content-end">
                     <button id="btn_aceptar" type="button" class="btn btn-success">Aceptar</button>
@@ -124,10 +130,10 @@
                 </div>
                 <div class="form-group mb-5">
                     <label class="w-25">Número de iteraciones</label>
-                    <input placeholder="0 = infinito" id="iteraciones" class="w-50">
+                    <input placeholder="0 = infinito" id="iteraciones2" class="w-50">
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button id="btn_aceptar" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btn_aceptar2" type="button" class="btn btn-success">Aceptar</button>
                 </div>
             </form>
         </section>
@@ -160,13 +166,17 @@
                     <input placeholder="Entre 0's y 1's" id="confi3" class="w-50">
                     <button id="btn_confi3" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
-                <div class="form-group mb-5">
+                <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
                     <input placeholder="Entre 0 y 255" class="w-50" id= "regla3">
                     <button id="btn_regla3" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
+                <div class="form-group mb-5">
+                    <label class="w-25">Número de iteraciones</label>
+                    <input placeholder="0 = infinito" id="iteraciones3" class="w-50">
+                </div>
                 <div class="d-flex justify-content-end">
-                    <button id="btn_aceptar" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btn_aceptar3" type="button" class="btn btn-success">Aceptar</button>
                 </div>
             </form>
         </section>

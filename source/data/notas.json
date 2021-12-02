@@ -1,9 +1,9 @@
 [
         {"value": "seleccionar", "name": "Seleccionar"},
-        {"value": "1", "name": "Do"},
-        {"value": "2", "name": "Re"},
-        {"value": "3", "name": "Mi"},
-        {"value": "4", "name": "Fa"},
-        {"value": "5", "name": "Sol"},
-        {"value": "0", "name": "Silencio"}
+        {"value": "do", "name": "Do"},
+        {"value": "re", "name": "Re"},
+        {"value": "mi", "name": "Mi"},
+        {"value": "fa", "name": "Fa"},
+        {"value": "sol", "name": "Sol"},
+        {"value": "silencio", "name": "Silencio"}
 ]

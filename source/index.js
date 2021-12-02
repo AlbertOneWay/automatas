@@ -7,57 +7,83 @@ document.addEventListener("DOMContentLoaded", async e => {
 
     const ConfigAutomata = {
         array: ConfigInicialRandom(longi),
-        Tipofrontera: "Circular"
+        Tipofrontera: "circular"
     }
     let automata1 = CrearAutomata(ConfigAutomata)
+    console.log(automata1);
 
     dibujarArreglo('#automata-1')
 
 
     document.querySelector('#btn_aceptar').addEventListener('click', e => {
 
+        let longitud =parseInt(document.getElementById('longitud').value)
+
+        let frontera1= document.getElementById('fronteras').value
+
+        let regla1 = CrearRegla(parseInt(document.getElementById('regla').value))
+        
+        let instrumento1 = EscogerInstrumento(document.getElementById('instrumentos').value) 
+        
+        let notauno1 = EscogerNota(instrumento1["nombre"], document.getElementById('notaUno').value)
+        
+        let notados1 = EscogerNota(instrumento1["nombre"], document.getElementById('notaDos').value)
+
+        let nroIteraciones = parseInt(document.getElementById('iteraciones').value) 
+
+        let array1 =  LlenarConfigInicial(document.getElementById('confi').value, longitud) 
+        
+        
+        let automata1 = CrearAutomata(array1, notauno1, notados1, instrumento1, longitud, frontera1, regla1, nroIteraciones)
+        console.log(automata1);
     })
 
-    const instrumentosList = await fetchData("./data/instrumentos.json")
-    populateSelectList('#instrumentos', instrumentosList, 'value', 'name')
-    populateSelectList('#instrumentos2', instrumentosList, 'value', 'name')
-    populateSelectList('#instrumentos3', instrumentosList, 'value', 'name')
-    const instrumento = document.querySelector('#instrumentos')
+    document.querySelector('#btn_aceptar2').addEventListener('click', e => {
 
-    instrumento.addEventListener('change', e => {
-        const list = e.target
-        const item = list.options[list.selectedIndex]
-        console.log(instrumento[list.selectedIndex].value, instrumento[list.selectedIndex].text);
+        let longitud =parseInt(document.getElementById('longitud').value)
+
+        let frontera2= document.getElementById('fronteras').value
+
+        let regla2 = CrearRegla(parseInt(document.getElementById('regla2').value))
+        
+        let instrumento2 = EscogerInstrumento(document.getElementById('instrumentos2').value) 
+        
+        let notauno2 = EscogerNota(instrumento2["nombre"], document.getElementById('notaUno2').value)
+        
+        let notados2 = EscogerNota(instrumento2["nombre"], document.getElementById('notaDos2').value)
+
+        let nroIteraciones2 = parseInt(document.getElementById('iteraciones2').value) 
+
+        let array2 =  LlenarConfigInicial(document.getElementById('confi2').value, longitud) 
+        
+        
+        let automata2 = CrearAutomata(array2, notauno2, notados2, instrumento2, longitud, frontera2, regla2, nroIteraciones2)
+        console.log(automata2);
     })
 
-    const notas = await fetchData('./data/notas.json')
-    populateSelectList('#notaUno', notas, 'value', 'name')
-    populateSelectList('#notaUno2', notas, 'value', 'name')
-    populateSelectList('#notaUno3', notas, 'value', 'name')
-    const notaUno = document.querySelector('#notaUno')
+    document.querySelector('#btn_aceptar3').addEventListener('click', e => {
 
-    populateSelectList('#notaDos', notas, 'value', 'name')
-    populateSelectList('#notaDos2', notas, 'value', 'name')
-    populateSelectList('#notaDos3', notas, 'value', 'name')
-    const notaDos = document.querySelector('#notaDos')
+        let longitud =parseInt(document.getElementById('longitud').value)
 
+        let frontera3= document.getElementById('fronteras').value
 
-    notaUno.addEventListener('change', e => {
-        const list = e.target
-        const item = list.options[list.selectedIndex]
-        console.log(notaUno[list.selectedIndex].value, notaUno[list.selectedIndex].text);
+        let regla3 = CrearRegla(parseInt(document.getElementById('regla3').value))
+        
+        let instrumento3 = EscogerInstrumento(document.getElementById('instrumentos3').value) 
+        
+        let notauno3 = EscogerNota(instrumento3["nombre"], document.getElementById('notaUno3').value)
+        
+        let notados3 = EscogerNota(instrumento3["nombre"], document.getElementById('notaDos3').value)
+
+        let nroIteraciones3 = parseInt(document.getElementById('iteraciones3').value) 
+
+        let array3 =  LlenarConfigInicial(document.getElementById('confi3').value, longitud) 
+        
+        
+        let automata2 = CrearAutomata(array3, notauno3, notados3, instrumento3, longitud, frontera3, regla3, nroIteraciones3)
+        console.log(automata2);
     })
-
-    notaDos.addEventListener('change', e => {
-        const list = e.target
-        const item = list.options[list.selectedIndex]
-        console.log(notaDos[list.selectedIndex].value, notaDos[list.selectedIndex].text);
-    })
-
-    const fronteras = await fetchData('./data/fronteras.json')
-    populateSelectList('#fronteras', fronteras, 'value', 'name')
-
-
+    
 
     let doms = CargaDom.escucharRandom()
 
@@ -74,8 +100,9 @@ function IteracionAutomata() {
     array
 }
 
-function CrearAutomata({ array, notacero, notauno, instrumento, longitud, Tipofrontera, regla, nroiteraciones }) {
+function CrearAutomata( array, notacero, notauno, instrumento, longitud, Tipofrontera, Nuevaregla, nroiteraciones ) {
 
+    console.log(array, notacero, notauno, instrumento, longitud, Tipofrontera, Nuevaregla, nroiteraciones);
     if (!instrumento) {
         instrumento = InstrumentoRandom()
     }
@@ -90,7 +117,6 @@ function CrearAutomata({ array, notacero, notauno, instrumento, longitud, Tipofr
     }
 
     let fronteras = EscogerFrontera(Tipofrontera, array)
-    let regla = CrearRegla(regla)
 
     const automata = {
         notacero: notacero,
@@ -98,7 +124,8 @@ function CrearAutomata({ array, notacero, notauno, instrumento, longitud, Tipofr
         instrumento: instrumento,
         fronteras: fronteras,
         array: array,
-        regla: Nuevaregla
+        regla: Nuevaregla,
+        nroiteraciones: nroiteraciones
     }
 
     return automata
@@ -109,15 +136,15 @@ const EscogerFrontera = (frontera, arreglo) => {
     const fronteras = {}
 
 
-    if (frontera === "Circular") {
+    if (frontera === "circular") {
         fronteras.primerfrontera = arreglo[arreglo.length - 1]
         fronteras.ultimafrontera = arreglo[0]
-    } else if (frontera === "Espejo") {
+    } else if (frontera === "espejo") {
         fronteras.primerfrontera = arreglo[0]
         fronteras.ultimafrontera = arreglo[arreglo.length - 1]
-    } else if (frontera === "Fijo") {
-        fronteras.primerfrontera = ""
-        fronteras.ultimafrontera = ""
+    } else if (frontera === "fijo") {
+        fronteras.primerfrontera = parseInt(document.getElementById('frontprim').value) 
+        fronteras.ultimafrontera = parseInt(document.getElementById('frontult').value)
     }
 
     return fronteras
@@ -195,7 +222,9 @@ function EscogerNota(instrumento, nota) {
 
 function NotaRandom(instrumento) {
 
-    let numero = Math.round((Math.random() * 4));
+    let numero = Math.round((Math.random() * 5));
+    
+    if (numero === 0) numero += 1
 
     return Object.values(instrumento)[numero]
 
