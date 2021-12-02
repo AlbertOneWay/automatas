@@ -1,0 +1,6 @@
+[
+        {"value": "seleccionar", "name": "Seleccionar"},
+        {"value": "circular", "name": "Circular"},
+        {"value": "espejo", "name": "Espejo"},
+        {"value": "fijo", "name": "Valor Fijo"}
+]
