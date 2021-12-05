@@ -1,5 +1,5 @@
 [
-    {"value": "seleccionar", "name": "Seleccionar"},
+    {"value": "", "name": "Seleccionar"},
     {"value": "guitarra", "name": "Guitarra"},
     {"value": "trompeta", "name": "Trompeta"},
     {"value": "flauta", "name": "Flauta"},

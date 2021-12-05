@@ -55,22 +55,22 @@
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
             <h3 class="mb-3">Automata 1</h3>
-            <form>
+            <form id="automata1">
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Instrumento</label>
-                    <select class="form-select w-50" id="instrumentos">
+                    <select class="form-select w-50" id="instrumentos" required>
                     </select>
                     <button id="btn_instrumento" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Primer Nota</label>
-                    <select class="form-select w-50" id="notaUno">
+                    <select class="form-select w-50" id="notaUno" required>
                     </select>
                     <button id="btn_primernota" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Segunda Nota</label>
-                    <select class="form-select w-50" id="notaDos">
+                    <select class="form-select w-50" id="notaDos" required>
                     </select>
                     <button id="btn_segundanota" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
-                    <input placeholder="Entre 0 y 255" class="w-50" id= "regla">
+                    <input placeholder="Entre 0 y 255" class="w-50" id= "regla" max="255">
                     <button id="btn_regla" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-5">
@@ -89,7 +89,7 @@
                     <input placeholder="0 = infinito" id="iteraciones" class="w-50">
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button id="btn_aceptar" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btn_aceptar" type="submit" class="btn btn-success">Aceptar</button>
                 </div>
             </form>
         </section>
@@ -138,7 +138,7 @@
             </form>
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
-            
+            <canvas width="600" height="341" id="automata-2"></canvas>
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
             <h3 class="mb-3">Automata 3</h3>
@@ -181,7 +181,7 @@
             </form>
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
-            
+            <canvas width="600" height="341" id="automata-3"></canvas>
         </section>
         
     </main>

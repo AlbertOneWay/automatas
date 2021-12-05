@@ -12,30 +12,41 @@ document.addEventListener("DOMContentLoaded", async e => {
     let automata1 = CrearAutomata(ConfigAutomata)
     console.log(automata1);
 
-    dibujarArreglo('#automata-1')
+    
 
 
-    document.querySelector('#btn_aceptar').addEventListener('click', e => {
+    document.querySelector('#automata1').addEventListener('submit', e => {
+
+        e.preventDefault();
 
         let longitud =parseInt(document.getElementById('longitud').value)
 
+
         let frontera1= document.getElementById('fronteras').value
 
+
         let regla1 = CrearRegla(parseInt(document.getElementById('regla').value))
+
         
         let instrumento1 = EscogerInstrumento(document.getElementById('instrumentos').value) 
+
         
         let notauno1 = EscogerNota(instrumento1["nombre"], document.getElementById('notaUno').value)
+
         
         let notados1 = EscogerNota(instrumento1["nombre"], document.getElementById('notaDos').value)
+        
 
         let nroIteraciones = parseInt(document.getElementById('iteraciones').value) 
+
 
         let array1 =  LlenarConfigInicial(document.getElementById('confi').value, longitud) 
         
         
         let automata1 = CrearAutomata(array1, notauno1, notados1, instrumento1, longitud, frontera1, regla1, nroIteraciones)
         console.log(automata1);
+
+        dibujarArreglo('#automata-1', automata1)
     })
 
     document.querySelector('#btn_aceptar2').addEventListener('click', e => {
@@ -59,6 +70,8 @@ document.addEventListener("DOMContentLoaded", async e => {
         
         let automata2 = CrearAutomata(array2, notauno2, notados2, instrumento2, longitud, frontera2, regla2, nroIteraciones2)
         console.log(automata2);
+
+        dibujarArreglo('#automata-2', automata2)
     })
 
     document.querySelector('#btn_aceptar3').addEventListener('click', e => {
@@ -80,29 +93,99 @@ document.addEventListener("DOMContentLoaded", async e => {
         let array3 =  LlenarConfigInicial(document.getElementById('confi3').value, longitud) 
         
         
-        let automata2 = CrearAutomata(array3, notauno3, notados3, instrumento3, longitud, frontera3, regla3, nroIteraciones3)
-        console.log(automata2);
+        let automata3 = CrearAutomata(array3, notauno3, notados3, instrumento3, longitud, frontera3, regla3, nroIteraciones3)
+        console.log(automata3);
+
+        dibujarArreglo('#automata-3', automata3)
     })
     
 
     let doms = CargaDom.escucharRandom()
 
+
+    
+
+
 })
 
-function RecorrerAutomata(nroiteraciones) {
 
-    for (let i = 0; i < nroiteraciones; i++) {
-        IteracionAutomata()
+function SiguienteArreglo(automata)
+{
+    let PosAnterior;
+    let PosSiguiente;
+    let Vecino;
+    let arreglo = [];
+    let NextState = [];
+
+    
+    
+    for (let i = 0; i < automata.array.length; i++)
+    {
+        console.log(i);
+        if (i === 0){
+            PosAnterior = automata.fronteras.primerfrontera;
+            PosSiguiente = i + 1;
+            Vecino = PosAnterior.toString() + automata.array[i].toString() + automata.array[PosSiguiente].toString();
+        }
+        else if (i === (automata.array.length - 1)){
+            PosAnterior = i - 1;
+            PosSiguiente = automata.fronteras.ultimafrontera;
+            Vecino = automata.array[PosAnterior].toString() + automata.array[i].toString() + PosSiguiente.toString();
+        } else {
+            PosAnterior = i - 1;
+            PosSiguiente = i + 1;
+            Vecino = automata.array[PosAnterior].toString() + automata.array[i].toString() + automata.array[PosSiguiente].toString();
+        }
+
+        console.log("Valor 000",automata.regla.get("000"));
+
+        switch (Vecino)
+        {
+            case "000":
+                NextState[i] = automata.regla.get("000");
+                break;
+            case "001":
+                NextState[i] = automata.regla.get("001");
+                break;
+            case "010":
+                NextState[i] = automata.regla.get("010");
+                break;
+            case "011":
+                NextState[i] = automata.regla.get("011");
+                break;
+            case "100":
+                NextState[i] = automata.regla.get("100");
+                break;
+            case "101":
+                NextState[i] = automata.regla.get("101");
+                break;
+            case "110":
+                NextState[i] = automata.regla.get("110");
+                break;
+            case "111":
+                NextState[i] = automata.regla.get("111");
+                break;
+        }
     }
+
+    for (let i = 0; i < NextState.length; i++)
+    {
+        arreglo[i] = NextState[i];
+    }
+
+    NextState.length = 0;
+
+    automata.array = arreglo
+
+    automata.fronteras = EscogerFrontera(document.getElementById('fronteras').value, arreglo)
+
+    return arreglo
+    //this.FireStateChangedEvent();
 }
 
-function IteracionAutomata() {
-    array
-}
 
 function CrearAutomata( array, notacero, notauno, instrumento, longitud, Tipofrontera, Nuevaregla, nroiteraciones ) {
 
-    console.log(array, notacero, notauno, instrumento, longitud, Tipofrontera, Nuevaregla, nroiteraciones);
     if (!instrumento) {
         instrumento = InstrumentoRandom()
     }
@@ -285,8 +368,8 @@ async function fetchData(url, data = {}) {
 
 }
 
-async function dibujarArreglo(canvasAutomataId) {
-    let arregloNotas = [1, 0, 1, 0, 0, 1, 1, 0, 0];
+async function dibujarArreglo(canvasAutomataId, automata) {
+    let arregloNotas = automata.array;
 
     const canvasAutomata = document.querySelector(`${canvasAutomataId}`);
     let context = canvasAutomata.getContext('2d');
@@ -295,13 +378,22 @@ async function dibujarArreglo(canvasAutomataId) {
 
     let coordenadaYActual = 10;
 
-    while (true) {
+    let numeroIteraciones = automata.nroiteraciones
+
+    if(automata.nroiteraciones == 0) numeroIteraciones = 1
+
+    while (numeroIteraciones > 0) {
         let coordenadaXActual = 0;
         for (const nota of arregloNotas) {
             if (nota === 0) {
-                await insertarElemento(context, "blue", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#161853", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+
+                automata.notacero.sonido.currentTime = 0
+                automata.notacero.sonido.play()
             } else if (nota === 1) {                
-                await insertarElemento(context, "yellow", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#EC255A", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                automata.notauno.sonido.currentTime = 0
+                automata.notauno.sonido.play()
             }
 
             coordenadaXActual += anchoRectangulo;
@@ -309,13 +401,17 @@ async function dibujarArreglo(canvasAutomataId) {
 
         coordenadaYActual += 10;
 
-        // Se crea el nuevo arreglo según las reglas
+        arregloNotas = SiguienteArreglo(automata)
+        console.log(arregloNotas);
         // arregloNotas = [0, 0, 1, 1, 0, 0, 1, 0, 1];
 
         if (coordenadaYActual > canvasAutomata.height) {
             coordenadaYActual = 10;
         }
+
+        numeroIteraciones--
         
+        if(automata.nroiteraciones == 0) numeroIteraciones = 1
     }
 }
 
@@ -328,6 +424,7 @@ function insertarElemento(ctx, color, cordX, cordY, width, height) {
             ctx.clearRect(cordX, cordY, width, height)
             ctx.fillRect(cordX, cordY, width, height)
             ctx.closePath()
+
 
             resolve(true)
         }, 1000);
