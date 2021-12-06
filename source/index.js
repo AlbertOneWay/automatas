@@ -390,12 +390,12 @@ async function dibujarArreglo(canvasAutomataId, automata) {
         let coordenadaXActual = 0;
         for (const nota of arregloNotas) {
             if (nota === 0) {
-                await insertarElemento(context, "#161853", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#3DB2FF", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
 
                 automata.notacero.sonido.currentTime = 0
                 automata.notacero.sonido.play()
             } else if (nota === 1) {                
-                await insertarElemento(context, "#EC255A", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#113CFC", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
                 automata.notauno.sonido.currentTime = 0
                 automata.notauno.sonido.play()
             }
