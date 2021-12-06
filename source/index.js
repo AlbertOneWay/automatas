@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", async e => {
         dibujarArreglo('#automata-1', automata1)
     })
 
-    document.querySelector('#btn_aceptar2').addEventListener('click', e => {
+    document.querySelector('#automata2').addEventListener('submit', e => {
+
+        e.preventDefault();
 
         let longitud =parseInt(document.getElementById('longitud').value)
 
@@ -74,7 +76,9 @@ document.addEventListener("DOMContentLoaded", async e => {
         dibujarArreglo('#automata-2', automata2)
     })
 
-    document.querySelector('#btn_aceptar3').addEventListener('click', e => {
+    document.querySelector('#automata3').addEventListener('submit', e => {
+
+        e.preventDefault();
 
         let longitud =parseInt(document.getElementById('longitud').value)
 

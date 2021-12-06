@@ -1,5 +1,5 @@
 [
-        {"value": "seleccionar", "name": "Seleccionar"},
+        {"value": "", "name": "Seleccionar"},
         {"value": "do", "name": "Do"},
         {"value": "re", "name": "Re"},
         {"value": "mi", "name": "Mi"},

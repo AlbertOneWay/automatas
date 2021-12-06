@@ -76,17 +76,17 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Configuración inicial</label>
-                    <input placeholder="Entre 0's y 1's" id="confi" class="w-50">
+                    <input placeholder="Entre 0's y 1's" id="confi" class="w-50" pattern="[0*1*]*" required>
                     <button id="btn_confi" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
-                    <input placeholder="Entre 0 y 255" class="w-50" id= "regla" max="255">
+                    <input type="number" placeholder="Entre 0 y 255" class="w-50" id= "regla" max="255" required>
                     <button id="btn_regla" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-5">
                     <label class="w-25">Número de iteraciones</label>
-                    <input placeholder="0 = infinito" id="iteraciones" class="w-50">
+                    <input placeholder="0 = infinito" id="iteraciones" class="w-50" required>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button id="btn_aceptar" type="submit" class="btn btn-success">Aceptar</button>
@@ -99,41 +99,41 @@
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
             <h3 class="mb-3">Automata 2</h3>
-            <form>
+            <form id="automata2">
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Instrumento</label>
-                    <select class="form-select w-50" id="instrumentos2">
+                    <select class="form-select w-50" id="instrumentos2" required>
                     </select>
                     <button id="btn_instrumento2" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Primer Nota</label>
-                    <select class="form-select w-50" id="notaUno2">
+                    <select class="form-select w-50" id="notaUno2" required>
                     </select>
                     <button id="btn_primernota2" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Segunda Nota</label>
-                    <select class="form-select w-50" id="notaDos2">
+                    <select class="form-select w-50" id="notaDos2" required>
                     </select>
                     <button id="btn_segundanota2" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Configuración inicial</label>
-                    <input placeholder="Entre 0's y 1's" id="confi2" class="w-50">
+                    <input placeholder="Entre 0's y 1's" id="confi2" class="w-50" pattern="[0*1*]*" required>
                     <button id="btn_confi2" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
-                    <input placeholder="Entre 0 y 255" class="w-50" id= "regla2">
+                    <input type="number" placeholder="Entre 0 y 255" class="w-50" id= "regla2" max="255" required>
                     <button id="btn_regla2" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-5">
                     <label class="w-25">Número de iteraciones</label>
-                    <input placeholder="0 = infinito" id="iteraciones2" class="w-50">
+                    <input placeholder="0 = infinito" id="iteraciones2" class="w-50" required>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button id="btn_aceptar2" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btn_aceptar2" type="submit" class="btn btn-success">Aceptar</button>
                 </div>
             </form>
         </section>
@@ -142,41 +142,41 @@
         </section>
         <section class="col-md-6 px-5 py-4 bg-light">
             <h3 class="mb-3">Automata 3</h3>
-            <form>
+            <form id="automata3">
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Instrumento</label>
-                    <select class="form-control w-50" id="instrumentos3">
+                    <select class="form-control w-50" id="instrumentos3" required>
                     </select>
                     <button id="btn_instrumento3" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Primer Nota</label>
-                    <select class="form-select w-50" id="notaUno3">
+                    <select class="form-select w-50" id="notaUno3" required>
                     </select>
                     <button id="btn_primernota3" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group d-flex justify-content-start mb-3">
                     <label class="w-25">Segunda Nota</label>
-                    <select class="form-select w-50" id="notaDos3">
+                    <select class="form-select w-50" id="notaDos3" required>
                     </select>
                     <button id="btn_segundanota3" type="button" class="btn btn-primary ms-4">Random</button>
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Configuración inicial</label>
-                    <input placeholder="Entre 0's y 1's" id="confi3" class="w-50">
+                    <input placeholder="Entre 0's y 1's" id="confi3" class="w-50" pattern="[0*1*]*" required>
                     <button id="btn_confi3" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-3">
                     <label class="w-25">Regla</label>
-                    <input placeholder="Entre 0 y 255" class="w-50" id= "regla3">
+                    <input type= "number" placeholder="Entre 0 y 255" class="w-50" id= "regla3" max="255" required>
                     <button id="btn_regla3" type="button" class="btn btn-primary ms-3">Random</button>
                 </div>
                 <div class="form-group mb-5">
                     <label class="w-25">Número de iteraciones</label>
-                    <input placeholder="0 = infinito" id="iteraciones3" class="w-50">
+                    <input placeholder="0 = infinito" id="iteraciones3" class="w-50" required>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button id="btn_aceptar3" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btn_aceptar3" type="submit" class="btn btn-success">Aceptar</button>
                 </div>
             </form>
         </section>
