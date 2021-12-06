@@ -1,6 +1,12 @@
 import { instrumentos } from "./model/instrumentos.js"
 import * as CargaDom from "./model/cargasDom.js"
 
+const timers = {
+    'timerAutomata1': function() {}(),
+    'timerAutomata2': function() {}(),
+    'timerAutomata3': function() {}()
+}
+
 document.addEventListener("DOMContentLoaded", async e => {
 
     let longi = LongitudRandom()
@@ -10,9 +16,6 @@ document.addEventListener("DOMContentLoaded", async e => {
         Tipofrontera: "circular"
     }
     let automata1 = CrearAutomata(ConfigAutomata)
-    console.log(automata1);
-
-    
 
 
     document.querySelector('#automata1').addEventListener('submit', e => {
@@ -44,9 +47,8 @@ document.addEventListener("DOMContentLoaded", async e => {
         
         
         let automata1 = CrearAutomata(array1, notauno1, notados1, instrumento1, longitud, frontera1, regla1, nroIteraciones)
-        console.log(automata1);
 
-        dibujarArreglo('#automata-1', automata1)
+        dibujarArreglo('#automata-1', automata1, 'timerAutomata1')
     })
 
     document.querySelector('#automata2').addEventListener('submit', e => {
@@ -69,11 +71,9 @@ document.addEventListener("DOMContentLoaded", async e => {
 
         let array2 =  LlenarConfigInicial(document.getElementById('confi2').value, longitud) 
         
-        
         let automata2 = CrearAutomata(array2, notauno2, notados2, instrumento2, longitud, frontera2, regla2, nroIteraciones2)
-        console.log(automata2);
 
-        dibujarArreglo('#automata-2', automata2)
+        dibujarArreglo('#automata-2', automata2, 'timerAutomata2')
     })
 
     document.querySelector('#automata3').addEventListener('submit', e => {
@@ -96,11 +96,9 @@ document.addEventListener("DOMContentLoaded", async e => {
 
         let array3 =  LlenarConfigInicial(document.getElementById('confi3').value, longitud) 
         
-        
         let automata3 = CrearAutomata(array3, notauno3, notados3, instrumento3, longitud, frontera3, regla3, nroIteraciones3)
-        console.log(automata3);
 
-        dibujarArreglo('#automata-3', automata3)
+        dibujarArreglo('#automata-3', automata3, 'timerAutomata3')
     })
     
 
@@ -125,7 +123,6 @@ function SiguienteArreglo(automata)
     
     for (let i = 0; i < automata.array.length; i++)
     {
-        console.log(i);
         if (i === 0){
             PosAnterior = automata.fronteras.primerfrontera;
             PosSiguiente = i + 1;
@@ -140,8 +137,6 @@ function SiguienteArreglo(automata)
             PosSiguiente = i + 1;
             Vecino = automata.array[PosAnterior].toString() + automata.array[i].toString() + automata.array[PosSiguiente].toString();
         }
-
-        console.log("Valor 000",automata.regla.get("000"));
 
         switch (Vecino)
         {
@@ -184,7 +179,6 @@ function SiguienteArreglo(automata)
     automata.fronteras = EscogerFrontera(document.getElementById('fronteras').value, arreglo)
 
     return arreglo
-    //this.FireStateChangedEvent();
 }
 
 
@@ -372,11 +366,14 @@ async function fetchData(url, data = {}) {
 
 }
 
-async function dibujarArreglo(canvasAutomataId, automata) {
+async function dibujarArreglo(canvasAutomataId, automata, idTimer) {
     let arregloNotas = automata.array;
 
     const canvasAutomata = document.querySelector(`${canvasAutomataId}`);
     let context = canvasAutomata.getContext('2d');
+
+    context.clearRect(0, 0, canvasAutomata.width, canvasAutomata.height)
+    clearTimeout(timers[idTimer])
 
     const anchoRectangulo = canvasAutomata.width / arregloNotas.length;
 
@@ -390,12 +387,12 @@ async function dibujarArreglo(canvasAutomataId, automata) {
         let coordenadaXActual = 0;
         for (const nota of arregloNotas) {
             if (nota === 0) {
-                await insertarElemento(context, "#3DB2FF", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#3DB2FF", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10, idTimer)
 
                 automata.notacero.sonido.currentTime = 0
                 automata.notacero.sonido.play()
             } else if (nota === 1) {                
-                await insertarElemento(context, "#113CFC", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10)
+                await insertarElemento(context, "#113CFC", coordenadaXActual, coordenadaYActual, anchoRectangulo, 10, idTimer)
                 automata.notauno.sonido.currentTime = 0
                 automata.notauno.sonido.play()
             }
@@ -406,8 +403,6 @@ async function dibujarArreglo(canvasAutomataId, automata) {
         coordenadaYActual += 10;
 
         arregloNotas = SiguienteArreglo(automata)
-        console.log(arregloNotas);
-        // arregloNotas = [0, 0, 1, 1, 0, 0, 1, 0, 1];
 
         if (coordenadaYActual > canvasAutomata.height) {
             coordenadaYActual = 10;
@@ -419,9 +414,9 @@ async function dibujarArreglo(canvasAutomataId, automata) {
     }
 }
 
-function insertarElemento(ctx, color, cordX, cordY, width, height) {
+function insertarElemento(ctx, color, cordX, cordY, width, height, idTimer) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
+        timers[idTimer] = setTimeout(() => {
             ctx.beginPath()
             ctx.fillStyle = color
             ctx.fill()
